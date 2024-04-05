@@ -3,7 +3,15 @@ from sqlalchemy.orm import relationship
 import models,database
 from database import Base
 
+class User(Base):
+    __tablename__ = 'users'
 
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100))
+    email = Column(String(100))
+    password = Column(String(100))
+
+    blogs = relationship('Blog', back_populates="creator")
 class Blog(Base):
     __tablename__ = 'blogs'
 
@@ -15,15 +23,7 @@ class Blog(Base):
     creator = relationship("User", back_populates="blogs")
 
 
-class User(Base):
-    __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(100))
-    email = Column(String(100))
-    password = Column(String(100))
-
-    blogs = relationship('Blog', back_populates="creator")
 
 # Base.metadata.create_all(bind=database.engine)
 

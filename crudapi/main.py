@@ -6,45 +6,84 @@ import models
 import database
 from hashing import Hash
 import schemas
+from routers import blog,user
 
 models.Base.metadata.create_all(bind=database.engine) 
 
 app = FastAPI()
 
 # Dependency to get the database session
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# def get_db():
+#     db = database.SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
 
-
-@app.post("/create_user/",status_code=status.HTTP_201_CREATED,response_model=schemas.ShowUser)
-def create_user(request: schemas.User, db: Session = Depends(get_db)):
-    db_user = models.User(name=request.name, email=request.email, password=request.password)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
-
-@app.get("/get_users",status_code=status.HTTP_200_OK,response_model=List[schemas.ShowUser])
-def get_users( db: Session = Depends(get_db)):
-    all_users = db.query(User).all()
-    if not all_users :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
-    return all_users
-
-
-@app.get("/get_user/{id}",status_code=status.HTTP_200_OK,response_model=schemas.ShowUser)
-def get_user(id:int ,db: Session = Depends(get_db)):
-    single_user = db.query(User).filter(User.id == id).first()
-    if not single_user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
-    return single_user
+app.include_router(blog.router)
+app.include_router(user.router)
 
 
 
+
+
+# ├── app
+# │   ├── __init__.py
+# │   ├── main.py
+# │   ├── dependencies.py
+# │   └── routers
+# │   │   ├── __init__.py
+# │   │   ├── items.py
+# │   │   └── users.py
+# │   └── internal
+# │       ├── __init__.py
+# │       └── admin.py
+
+
+
+
+
+
+
+
+# @app.post("/create_user/",status_code=status.HTTP_201_CREATED,response_model=schemas.ShowUser)
+# def create_user(request: schemas.User, db: Session = Depends(get_db)):
+#     db_user = models.User(name=request.name, email=request.email, password=request.password)
+#     db.add(db_user)
+#     db.commit()
+#     db.refresh(db_user)
+#     return db_user
+
+# @app.get("/get_users",status_code=status.HTTP_200_OK,response_model=List[schemas.ShowUser])
+# def get_users( db: Session = Depends(get_db)):
+#     all_users = db.query(User).all()
+#     if not all_users :
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
+#     return all_users
+
+
+# @app.get("/get_user/{id}",status_code=status.HTTP_200_OK,response_model=schemas.ShowUser)
+# def get_user(id:int ,db: Session = Depends(get_db)):
+#     single_user = db.query(User).filter(User.id == id).first()
+#     if not single_user :
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
+#     return single_user
+
+# @app.get("/get_blogs/",status_code=status.HTTP_200_OK,response_model=List[schemas.ShowBlog])
+# def get_blogs(db:Session = Depends(get_db)):
+#     all_blogs = db.query(models.Blog).all()
+#     if not all_blogs :
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
+#     return all_blogs
+    
+
+
+# @app.get("/get_blog/{id}",status_code=status.HTTP_200_OK,response_model=schemas.ShowBlog)
+# def get_blog(id:int,db:Session = Depends(get_db)):
+#     single_blog = db.query(models.Blog).filter(models.Blog.id == id).first()
+#     if not single_blog :
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
+#     return single_blog
 
 
 
