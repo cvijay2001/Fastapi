@@ -11,16 +11,18 @@ class User(Base):
     email = Column(String(100))
     password = Column(String(100))
 
-    blogs = relationship('Blog', back_populates="creator")
+    blogs = relationship('Blog', back_populates="creator",cascade="all, delete")
 class Blog(Base):
     __tablename__ = 'blogs'
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(100))
     body = Column(String(100))
-    user_id = Column(Integer, ForeignKey('users.id'))
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
 
     creator = relationship("User", back_populates="blogs")
+
+
 
 
 
