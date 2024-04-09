@@ -67,3 +67,24 @@ def update_one(task_id, request, db, current_user):
     db.refresh(update_task)
 
     return update_task
+
+
+
+def delete_one(task_id, db, current_user):
+    # Check if the user is an admin or regular user
+    if current_user.role == "regular":
+        todelete_task = db.query(models.Task).filter(models.Task.id == task_id, models.Task.user_id == current_user.id).first()
+    elif current_user.role == "admin":
+        todelete_task = db.query(models.Task).filter(models.Task.id == task_id).first()
+    else:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
+
+    # Check if the task exists
+    if not todelete_task:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No task with ID {task_id} found or you are not authorize to make changes to id {task_id}")
+    db.delete(todelete_task)
+
+    # Commit the changes to the database
+    db.commit()
+
+    return {'msg': "Task Deleted"}

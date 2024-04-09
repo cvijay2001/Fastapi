@@ -5,9 +5,10 @@ from sqlalchemy.orm import sessionmaker
 
 # SQLALCHEMY_DATABASE_URL = "mysql://root:admin!123@local/cruddb"
 
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:admin!123@localhost:3306/todolistdb"
+# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:admin!123@localhost:3306/todolistdb"
+SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:root@localhost:3306/todo_db"
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL) 
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False,)
 

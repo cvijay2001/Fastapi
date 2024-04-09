@@ -61,3 +61,7 @@ def get_cuser_tasks(current_user: Annotated[schemas.User, Depends(get_current_us
 
 
 
+@router.delete("/delete_task/{taskid}",status_code=status.HTTP_200_OK)
+def delete_task(current_user: Annotated[schemas.User, Depends(get_current_user)],taskid:int,db:Session = Depends(get_db)):
+    return task.delete_one(taskid,db,current_user)
+
