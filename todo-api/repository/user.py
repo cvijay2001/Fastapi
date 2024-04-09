@@ -3,6 +3,7 @@ import models
 import schemas
 from sqlalchemy.orm import Session
 from hashing import Hash
+from sqlalchemy import and_
 
 
 
@@ -50,7 +51,8 @@ def partiallyupdate(userid,request,current_user,db):
 
     print(" =------------>in partiallyupdate function")
     if current_user.role == "regular":
-        updateUser = db.query(models.User).filter((current_user.id == userid) & (models.User.id == current_user.id)).first()
+        # updateUser = db.query(models.User).filter((current_user.id == userid) & (models.User.id == current_user.id)).first()
+        updateUser = db.query(models.User).filter(and_(current_user.id == userid, models.User.id == current_user.id)).first()
     elif current_user.role == "admin":
         updateUser = db.query(models.User).filter(models.User.id == userid).first()
     else:
@@ -59,7 +61,7 @@ def partiallyupdate(userid,request,current_user,db):
 
     # Check if the user exists
     if not updateUser:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found or You are not authorized")
     print("Before updating the email")
     # updateUser.username = request.username
     updateUser.email = request.email
