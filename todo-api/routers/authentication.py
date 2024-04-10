@@ -25,8 +25,6 @@ get_db = database.get_db
 
 @router.post("/login/",status_code=status.HTTP_201_CREATED)
 def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(get_db)):
-
-# def login(form_data: OAuth2PasswordRequestForm = Depends(),db:Session=Depends(get_db)):
     print(form_data)
     print(" Entered login api")
 
