@@ -32,18 +32,21 @@ def get_info(id:int,db:Session):
     userinfo= db.query(models.User).filter(models.User.id == id).first()
     return userinfo
 
-def get_all(db:Session):
-    all_users = db.query(models.User).all()
+def get_all_not_deleted(db:Session):
+    all_users = db.query(models.User).filter(models.User.is_delete==False).all()
+    print(all_users,"---------------< al users")
     if not all_users :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
     return all_users
 
 def delete_one(id:int,db:Session):
-    single_user = db.query(models.User).filter(models.User.id == id).first()
+    single_user = db.query(models.User).filter(models.User.id == id,models.User.is_delete==False).first()
     if not single_user :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
-    db.delete(single_user)
+    # db.delete(single_user)
+    single_user.is_delete = True
     db.commit()
+    db.refresh(single_user)
     return {'msg': 'User deleted Successfully'}
 
 
@@ -52,7 +55,7 @@ def partiallyupdate(userid,request,current_user,db):
     print(" =------------>in partiallyupdate function")
     if current_user.role == "regular":
         # updateUser = db.query(models.User).filter((current_user.id == userid) & (models.User.id == current_user.id)).first()
-        updateUser = db.query(models.User).filter(and_(current_user.id == userid, models.User.id == current_user.id)).first()
+        updateUser = db.query(models.User).filter(and_(current_user.id == userid, models.User.id == current_user.id,models.User.is_delete == False)).first()
     elif current_user.role == "admin":
         updateUser = db.query(models.User).filter(models.User.id == userid).first()
     else:
@@ -70,6 +73,15 @@ def partiallyupdate(userid,request,current_user,db):
     db.commit()
     db.refresh(updateUser)
     return updateUser
+
+
+
+def deleted_all_users(current_user,db):
+    d_users = db.query(models.User).filter(models.User.is_delete==True).all()
+    if not d_users:
+        raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="No data present")
+    else:
+        return d_users
 
 
 

@@ -19,7 +19,7 @@ from oauth2 import get_current_user
 def get_all(db: Session):
 
     print("---------->in getall repository function")
-    all_tasks = db.query(models.Task).all()
+    all_tasks = db.query(models.Task).join(models.User).filter(models.User.is_delete == False).all()
 
     print("alltasks --------------> ",all_tasks)
     
@@ -29,7 +29,7 @@ def get_all(db: Session):
     return all_tasks
 
 def get_one(id:int,db: Session):
-    single_blog = db.query(models.Task).filter(models.Task.id == id).first()
+    single_blog = db.query(models.Task).join(models.User).filter(models.Task.id == id , models.User.is_delete == False).first()
     if not single_blog :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'NO User Present')
     return single_blog
@@ -44,7 +44,7 @@ def add_task(request: schemas.Task, db: Session,c_user):
 def update_one(task_id, request, db, current_user):
     # Check if the user is an admin or regular user
     if current_user.role == "regular":
-        update_task = db.query(models.Task).filter(models.Task.id == task_id, models.Task.user_id == current_user.id).first()
+        update_task = db.query(models.Task).join(models.User).filter(models.Task.id == task_id,models.User.is_delete == False).first()
     elif current_user.role == "admin":
         update_task = db.query(models.Task).filter(models.Task.id == task_id).first()
     else:
@@ -73,7 +73,7 @@ def update_one(task_id, request, db, current_user):
 def delete_one(task_id, db, current_user):
     # Check if the user is an admin or regular user
     if current_user.role == "regular":
-        todelete_task = db.query(models.Task).filter(models.Task.id == task_id, models.Task.user_id == current_user.id).first()
+        todelete_task = db.query(models.Task).join(models.User).filter(models.Task.id == task_id,models.User.is_delete == False, models.Task.user_id == current_user.id).first()
     elif current_user.role == "admin":
         todelete_task = db.query(models.Task).filter(models.Task.id == task_id).first()
     else:

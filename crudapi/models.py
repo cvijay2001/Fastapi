@@ -10,6 +10,7 @@ class User(Base):
     name = Column(String(100))
     email = Column(String(100))
     password = Column(String(100))
+    is_delete = Column(Boolean,default=False,nullable=False)
 
     blogs = relationship('Blog', back_populates="creator",cascade="all, delete")
 class Blog(Base):

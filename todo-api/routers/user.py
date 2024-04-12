@@ -54,3 +54,12 @@ def delete_user(current_user: Annotated[schemas.User, Depends(get_current_user)]
 def update_user(current_user: Annotated[schemas.User, Depends(get_current_user)],userid:int,request: schemas.UserBase, db: Session = Depends(get_db)):
     print('in pathc req------>')
     return user.partiallyupdate(userid,request,current_user,db)
+
+@router.get("/deleted_users",response_model=List[schemas.ShowUserwithDeleteFlag] )
+def deleted_user(current_user: Annotated[schemas.User, Depends(get_current_user)], db: Session = Depends(get_db)):
+    if not current_user.role == "admin":
+        return HTTPException(status_code=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION,detail={"Only admins are authorize"})
+    else:
+        return user.deleted_all_users(current_user,db)
+    
+        

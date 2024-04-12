@@ -15,7 +15,7 @@ router = APIRouter(
 get_db = database.get_db
 
 @router.post("/create_user/",status_code=status.HTTP_201_CREATED,response_model=schemas.ShowUser)
-def create_user(current_user: Annotated[schemas.User, Depends(get_current_user)],request: schemas.User, db: Session = Depends(get_db)):
+def create_user(request: schemas.User, db: Session = Depends(get_db)):
     return user.create(request,db)
 
 @router.get("/get_users",status_code=status.HTTP_200_OK,response_model=List[schemas.ShowUser])

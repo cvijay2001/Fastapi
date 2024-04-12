@@ -11,6 +11,7 @@ class User(Base):
     email = Column(String(100))
     password = Column(String(100))
     role=Column(String(100),default="regular")
+    is_delete= Column(Boolean,default=False)
 
     tasks = relationship('Task', back_populates="creator",cascade="all, delete")
 class Task(Base):

@@ -3,3 +3,7 @@ sqlalchemy
 passlib
 bcrypt
 python-jose
+fastapi
+crytography
+alembic
+psycopg2

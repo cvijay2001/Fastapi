@@ -1,0 +1,14 @@
+FastAPI  microservices
+
+pip install psycopg2-binary
+pip install alembic
+
+alembic init alembic
+
+
+alembic revision --autogenerate -m "description_of_change"
+alembic upgrade head
+
+
+
+python -m uvicorn main:app --reload

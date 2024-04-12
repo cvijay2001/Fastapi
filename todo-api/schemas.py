@@ -11,7 +11,7 @@ class TaskBase(BaseModel):
 
 class Task(TaskBase):
     # user_id:int
-    id:int
+    id:int 
     class Config():
         orm_mode = True
 
@@ -38,6 +38,10 @@ class ShowUser(BaseModel):
 
 class ShowUserWithId(ShowUser):
     id:int
+
+class ShowUserwithDeleteFlag(ShowUserWithId):
+    role:str
+    is_delete:bool
 
 class ShowtaskUser(BaseModel):
     username:str
