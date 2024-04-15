@@ -13,7 +13,7 @@ class Task(TaskBase):
     # user_id:int
     id:int 
     class Config():
-        orm_mode = True
+        from_attributes = True
 
 
 class UserBase(BaseModel):
@@ -23,7 +23,7 @@ class UserBase(BaseModel):
     
 
 class User(BaseModel):
-    username:str
+    username:str 
     password:str
     email:str
     # role:str
@@ -34,14 +34,20 @@ class ShowUser(BaseModel):
     email:str
     tasks : List[Task] =[]
 
+    
+    class Config():
+        from_attributes = True
 
 
 class ShowUserWithId(ShowUser):
     id:int
-
+    class Config():
+        from_attributes = True
 class ShowUserwithDeleteFlag(ShowUserWithId):
     role:str
     is_delete:bool
+    class Config():
+        from_attributes = True
 
 class ShowtaskUser(BaseModel):
     username:str
@@ -56,7 +62,7 @@ class ShowTask(BaseModel):
     creator: ShowtaskUser
 
     class Config():
-        orm_mode = True
+        from_attributes = True
 
 class Login(BaseModel):
     username:str

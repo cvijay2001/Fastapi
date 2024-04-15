@@ -16,6 +16,8 @@ def create(request: schemas.User, db: Session):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+
+    print(db_user.password,"___________________________________________________________dklfjdkfkd")
     return db_user
 
 def get_one(id:int,db:Session):
