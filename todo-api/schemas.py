@@ -1,4 +1,4 @@
-from pydantic import BaseModel 
+from pydantic import BaseModel ,EmailStr
 from typing import Union,List
 from datetime import date
 
@@ -17,20 +17,26 @@ class Task(TaskBase):
 
 
 class UserBase(BaseModel):
-    # id:str
-    # username:str
+    id:int
+    username:str
+    # email:EmailStr
     email:str
+
+class UserEmailOnly(BaseModel):
+    email :EmailStr
     
 
 class User(BaseModel):
     username:str 
     password:str
-    email:str
+    # email:EmailStr
+    email=str
     # role:str
 
 class ShowUser(BaseModel):
     # id:int
     username:str
+    # email:EmailStr
     email:str
     tasks : List[Task] =[]
 
@@ -38,11 +44,11 @@ class ShowUser(BaseModel):
     class Config():
         from_attributes = True
 
-
 class ShowUserWithId(ShowUser):
     id:int
     class Config():
         from_attributes = True
+        
 class ShowUserwithDeleteFlag(ShowUserWithId):
     role:str
     is_delete:bool
@@ -51,10 +57,11 @@ class ShowUserwithDeleteFlag(ShowUserWithId):
 
 class ShowtaskUser(BaseModel):
     username:str
-    email:str
+    email:EmailStr
     # role:str
 
 class ShowTask(BaseModel):
+    id:int
     title: str
     description:str
     due_date:date

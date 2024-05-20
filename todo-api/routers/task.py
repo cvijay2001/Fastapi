@@ -1,5 +1,5 @@
 from typing import List,Annotated
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException,Request
 import schemas, database, models
 from sqlalchemy.orm import Session
 import schemas
@@ -20,7 +20,8 @@ get_db = database.get_db
 
 @router.get("/get_tasks/",status_code=status.HTTP_200_OK,response_model=List[schemas.ShowTask])
 # def get_blogs(db:Session = Depends(get_db),current_user: Annotated[schemas.User, Depends(get_current_user)]):
-def get_tasks(current_user: Annotated[schemas.User, Depends(get_current_user)],db: Session = Depends(get_db)):
+def get_tasks(request:Request,current_user: Annotated[schemas.User, Depends(get_current_user)],db: Session = Depends(get_db)):
+    # return task.get_all(request,current_user,db)
     if current_user.role == "admin":
         return task.get_all(db)
     else:
@@ -30,19 +31,17 @@ def get_tasks(current_user: Annotated[schemas.User, Depends(get_current_user)],d
 @router.get("/get_task/{id}",status_code=status.HTTP_200_OK,response_model=schemas.ShowTask)
 def get_task(current_user: Annotated[schemas.User, Depends(get_current_user)],id:int,db:Session = Depends(get_db)):
 
-    if current_user.role == "admin":
-        return task.get_one(id,db)
+    if current_user.role in ('regular','admin'):
+        return task.get_one(id,current_user,db)
     else:
-        raise HTTPException(status_code=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION, detail= {"msg":"Not Authorize"})
+        raise HTTPException(status_code=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION, detail= {"msg":"You don't have Permission to access this"})
     
-
 
 @router.post("/create_task/",status_code=status.HTTP_201_CREATED,response_model=schemas.TaskBase)
 def create_task(current_user: Annotated[schemas.User, Depends(get_current_user)],request:schemas.TaskBase,db:Session = Depends(get_db)):
 
     print("current_user--------------->",current_user)
     return task.add_task(request,db,current_user)
-
 
 
 

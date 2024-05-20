@@ -1,0 +1,165 @@
+May 10, 2024 > 18:18:11 |  INFO  request_method : GET - /get_myinfo/ API endpoint called by user: regular
+May 10, 2024 > 18:18:11 |  ERROR  request_method : GET - /get_myinfo/  error -(sqlite3.ProgrammingError) SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 57420 and this is thread id 28588.
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.password AS users_password, users.role AS users_role, users.is_delete AS users_is_delete 
+FROM users 
+WHERE users.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/14/f405)  - Traceback (most recent call last):
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1810, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1020, in _init_compiled
+    self.cursor = self.create_cursor()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1391, in create_cursor
+    return self.create_default_cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1394, in create_default_cursor
+    return self._dbapi_connection.cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 1133, in cursor
+    return self.dbapi_connection.cursor(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 57420 and this is thread id 28588.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FastAPI\learn FastAPI\todo-api\repository\user.py", line 73, in get_info
+    userinfo= db.query(models.User).filter(models.User.id == current_user.id).first()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\orm\query.py", line 2824, in first
+    return self.limit(1)._iter().first()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\orm\query.py", line 2916, in _iter
+    result = self.session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\orm\session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1816, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1810, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1020, in _init_compiled
+    self.cursor = self.create_cursor()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1391, in create_cursor
+    return self.create_default_cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1394, in create_default_cursor
+    return self._dbapi_connection.cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 1133, in cursor
+    return self.dbapi_connection.cursor(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (sqlite3.ProgrammingError) SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 57420 and this is thread id 28588.
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.password AS users_password, users.role AS users_role, users.is_delete AS users_is_delete 
+FROM users 
+WHERE users.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+
+May 10, 2024 > 18:19:16 |  INFO  request_method : GET - /get_myinfo/ API endpoint called by user: regular
+May 10, 2024 > 18:19:16 |  ERROR  request_method : GET - /get_myinfo/  error -(sqlite3.ProgrammingError) SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 47324 and this is thread id 36988.
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.password AS users_password, users.role AS users_role, users.is_delete AS users_is_delete 
+FROM users 
+WHERE users.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/14/f405)  - Traceback (most recent call last):
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1810, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1020, in _init_compiled
+    self.cursor = self.create_cursor()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1391, in create_cursor
+    return self.create_default_cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1394, in create_default_cursor
+    return self._dbapi_connection.cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 1133, in cursor
+    return self.dbapi_connection.cursor(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 47324 and this is thread id 36988.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\FastAPI\learn FastAPI\todo-api\repository\user.py", line 73, in get_info
+    userinfo= db.query(models.User).filter(models.User.id == current_user.id).first()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\orm\query.py", line 2824, in first
+    return self.limit(1)._iter().first()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\orm\query.py", line 2916, in _iter
+    result = self.session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\orm\session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1816, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\base.py", line 1810, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1020, in _init_compiled
+    self.cursor = self.create_cursor()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1391, in create_cursor
+    return self.create_default_cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\engine\default.py", line 1394, in create_default_cursor
+    return self._dbapi_connection.cursor()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vijay.chinchpurkar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\sqlalchemy\pool\base.py", line 1133, in cursor
+    return self.dbapi_connection.cursor(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (sqlite3.ProgrammingError) SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 47324 and this is thread id 36988.
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.password AS users_password, users.role AS users_role, users.is_delete AS users_is_delete 
+FROM users 
+WHERE users.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+
+May 10, 2024 > 18:20:33 |  INFO  request_method : GET - /get_myinfo/ API endpoint called by user: regular
+May 14, 2024 > 14:01:57 |  INFO  request_method : GET - /get_myinfo/ API endpoint called by user: admin
+May 14, 2024 > 14:03:35 |  INFO  request_method : GET - /get_users/ API endpoint called by user: admin
+May 14, 2024 > 14:03:35 |  SUCCESS  All User GET Successfull
+May 14, 2024 > 14:05:43 |  INFO  request_method : GET - /get_users/ API endpoint called by user: admin
+May 14, 2024 > 14:05:43 |  SUCCESS  All User GET Successfull
+May 14, 2024 > 14:07:54 |  INFO  request_method : GET - /get_users/ API endpoint called by user: admin
+May 14, 2024 > 14:07:54 |  INFO   ia min get all users [<models.User object at 0x0000016B5886C4D0>, <models.User object at 0x0000016B5858F8D0>, <models.User object at 0x0000016B5886C610>, <models.User object at 0x0000016B5858F910>, <models.User object at 0x0000016B58585F10>, <models.User object at 0x0000016B5886C810>, <models.User object at 0x0000016B5886C8D0>, <models.User object at 0x0000016B5886C990>, <models.User object at 0x0000016B5886CA50>, <models.User object at 0x0000016B5886C7D0>, <models.User object at 0x0000016B5886CC50>, <models.User object at 0x0000016B585BC0D0>, <models.User object at 0x0000016B5886CE90>, <models.User object at 0x0000016B5886CFD0>, <models.User object at 0x0000016B58390350>, <models.User object at 0x0000016B5886D210>, <models.User object at 0x0000016B5886D350>, <models.User object at 0x0000016B5886D490>, <models.User object at 0x0000016B5886D5D0>, <models.User object at 0x0000016B5886D710>, <models.User object at 0x0000016B5886D850>, <models.User object at 0x0000016B5886D990>, <models.User object at 0x0000016B5886DAD0>, <models.User object at 0x0000016B5886DC10>, <models.User object at 0x0000016B5886DD50>, <models.User object at 0x0000016B5886DE90>, <models.User object at 0x0000016B5886DFD0>, <models.User object at 0x0000016B5886E110>, <models.User object at 0x0000016B5886E250>, <models.User object at 0x0000016B5886E390>, <models.User object at 0x0000016B5886E4D0>, <models.User object at 0x0000016B5886E610>, <models.User object at 0x0000016B5886E750>, <models.User object at 0x0000016B5886E890>, <models.User object at 0x0000016B5886E9D0>, <models.User object at 0x0000016B5857D9D0>, <models.User object at 0x0000016B5886EC50>, <models.User object at 0x0000016B5886EDD0>, <models.User object at 0x0000016B5886EF50>, <models.User object at 0x0000016B5886F0D0>, <models.User object at 0x0000016B5886F250>, <models.User object at 0x0000016B5886F3D0>, <models.User object at 0x0000016B5886F550>, <models.User object at 0x0000016B5886F6D0>, <models.User object at 0x0000016B5886F850>, <models.User object at 0x0000016B5885EBD0>, <models.User object at 0x0000016B5886F9D0>, <models.User object at 0x0000016B5886FB50>, <models.User object at 0x0000016B5886FCD0>, <models.User object at 0x0000016B5886FE50>, <models.User object at 0x0000016B5886FFD0>, <models.User object at 0x0000016B58874190>, <models.User object at 0x0000016B58874310>, <models.User object at 0x0000016B58874490>, <models.User object at 0x0000016B58874610>, <models.User object at 0x0000016B58874790>, <models.User object at 0x0000016B58874910>, <models.User object at 0x0000016B58874A90>, <models.User object at 0x0000016B58874C10>, <models.User object at 0x0000016B58874D90>, <models.User object at 0x0000016B58874F10>] 
+May 14, 2024 > 14:07:54 |  SUCCESS  All User GET Successfull

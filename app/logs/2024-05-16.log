@@ -1,0 +1,57 @@
+May 16, 2024 > 13:01:34 |  INFO  request_method : POST - API endpoint /create_event/ called with the following data -> event_title: event 1  and more...
+May 16, 2024 > 13:01:34 |  WARNING  Unauthorized attempt to create event by user with role: UserRole.regular_user
+May 16, 2024 > 13:02:04 |  INFO  request_method : POST - API endpoint /create_event/ called with the following data -> event_title: event 1 regular  and more...
+May 16, 2024 > 13:02:04 |  WARNING  Unauthorized attempt to create event by user with role: UserRole.regular_user
+May 16, 2024 > 13:05:04 |  INFO  request_method : POST - API endpoint /create_event/ called with the following data -> event_title: event 1 regular  and more...
+May 16, 2024 > 13:05:04 |  INFO  Event created by user: admin, event ID: 1
+May 16, 2024 > 13:06:31 |  INFO  request_method : POST - API endpoint /create_user/ called with the following username: org
+May 16, 2024 > 13:06:31 |  SUCCESS  User created successfully org
+May 16, 2024 > 13:07:50 |  INFO  request_method : POST - API endpoint /create_event/ called with the following data -> event_title: event organizer and more...
+May 16, 2024 > 13:07:50 |  WARNING  Unauthorized attempt to create event by user with role: UserRole.regular_user
+May 16, 2024 > 13:08:37 |  INFO  request_method : POST - API endpoint /create_event/ called with the following data -> event_title: event organizer and more...
+May 16, 2024 > 13:08:37 |  INFO  Event created by user: org, event ID: 2
+May 16, 2024 > 13:09:01 |  INFO  Request method: POST - API endpoint '/events/2/tickets' called by user: org
+May 16, 2024 > 13:09:01 |  INFO  Ticket created for event event organizer by user org: <api.users.models.Ticket object at 0x000001FC843FCC90>
+May 16, 2024 > 13:09:48 |  INFO  Retrieved ticket - id:<api.users.models.Ticket object at 0x000001FC844DBE90>
+May 16, 2024 > 13:09:53 |  WARNING  Ticket with ID 2 not found.
+May 16, 2024 > 13:10:12 |  INFO  Request method: GET - API endpoint '/get_events/' called by user: admin
+May 16, 2024 > 13:10:27 |  INFO  Retrieved ticket - id:<api.users.models.Ticket object at 0x000001FC844E9F90>
+May 16, 2024 > 13:10:31 |  WARNING  Ticket with ID 2 not found.
+May 16, 2024 > 13:10:54 |  INFO  Request method: GET - API endpoint '/event/1/tickets' called by user: username: admin
+May 16, 2024 > 13:10:54 |  INFO  Tickets retrieved for event_title event 1 regular  by user - username:admin
+May 16, 2024 > 13:10:59 |  INFO  Request method: GET - API endpoint '/event/2/tickets' called by user: username: admin
+May 16, 2024 > 13:10:59 |  INFO  Tickets retrieved for event_title event organizer by user - username:admin
+May 16, 2024 > 13:11:35 |  INFO  Request method: GET - API endpoint '/event/2/tickets' called by user: username: admin
+May 16, 2024 > 13:11:35 |  INFO  Tickets retrieved for event_title event organizer by user - username:admin
+May 16, 2024 > 13:11:39 |  INFO  Request method: GET - API endpoint '/event/1/tickets' called by user: username: admin
+May 16, 2024 > 13:11:39 |  INFO  Tickets retrieved for event_title event 1 regular  by user - username:admin
+May 16, 2024 > 13:12:03 |  INFO  Request method: GET - API endpoint '/get_events/' called by user: admin
+May 16, 2024 > 13:12:29 |  INFO  Request method: DELETE - API endpoint '/event/1' called by user: username:admin id:3
+May 16, 2024 > 13:12:29 |  SUCCESS  Ticket with ID 1 deleted by user admin
+May 16, 2024 > 13:13:41 |  INFO  Request method: POST - API endpoint '/events/2/tickets' called by user: admin
+May 16, 2024 > 13:13:41 |  INFO  Ticket created for event event organizer by user admin: <api.users.models.Ticket object at 0x000001FC81A6E390>
+May 16, 2024 > 13:14:50 |  INFO  request_method : GET - API endpoint /get_my_events/ called by user: username -> org
+May 16, 2024 > 13:15:23 |  INFO  Request method: POST - API endpoint '/events/2/tickets' called by user: org
+May 16, 2024 > 13:15:23 |  INFO  Ticket created for event event organizer by user org: <api.users.models.Ticket object at 0x000001FC844F1E10>
+May 16, 2024 > 13:15:41 |  INFO  Request method: DELETE - API endpoint '/event/3' called by user: username:org id:4
+May 16, 2024 > 13:15:41 |  SUCCESS  Ticket with ID 3 deleted by user org
+May 16, 2024 > 13:36:51 |  INFO  Request method: GET - API endpoint '/get_events/' called by user: regular
+May 16, 2024 > 13:37:05 |  INFO  Request method: GET - API endpoint '/event/1/tickets' called by user: username: regular
+May 16, 2024 > 13:37:05 |  INFO  Tickets retrieved for event_title event 1 regular  by user - username:regular
+May 16, 2024 > 13:37:10 |  INFO  Request method: GET - API endpoint '/event/2/tickets' called by user: username: regular
+May 16, 2024 > 13:37:10 |  INFO  Tickets retrieved for event_title event organizer by user - username:regular
+May 16, 2024 > 13:37:44 |  INFO  Request method: POST - API endpoint '/tickets/purchase' called by user: regular
+May 16, 2024 > 13:37:44 |  INFO  Tickets purchased by user regular: <api.users.models.TicketPurchased object at 0x000001FF4DAD52D0>
+May 16, 2024 > 13:38:21 |  INFO  Request method: POST - API endpoint '/tickets/purchase' called by user: regular
+May 16, 2024 > 13:38:21 |  INFO  Tickets purchased by user regular: <api.users.models.TicketPurchased object at 0x000001FF4D97B210>
+May 16, 2024 > 13:38:47 |  INFO  Request method: POST - API endpoint '/tickets/purchase' called by user: regular
+May 16, 2024 > 13:38:47 |  INFO  Tickets purchased by user regular: <api.users.models.TicketPurchased object at 0x000001FF4D8EDA10>
+May 16, 2024 > 13:39:01 |  INFO  Request method: POST - API endpoint '/tickets/purchase' called by user: regular
+May 16, 2024 > 13:39:01 |  WARNING  Insufficient tickets available for purchase. Requested quantity: 9, Available quantity: 1
+May 16, 2024 > 14:11:12 |  INFO  Request method: GET - API endpoint '/users/1/purchased_tickets' called by user: admin
+May 16, 2024 > 14:11:12 |  INFO  Purchased tickets retrieved for user 1 by user admin
+May 16, 2024 > 15:55:25 |  INFO  request_method : POST - API endpoint /create_user/ called with the following username: string
+May 16, 2024 > 15:55:25 |  SUCCESS  User created successfully string
+May 16, 2024 > 15:56:40 |  INFO  Request method: GET - API endpoint '/get_events/' called by user: admin
+May 16, 2024 > 16:05:56 |  INFO  Request method: POST - API endpoint '/tickets/purchase' called by user: admin
+May 16, 2024 > 16:05:56 |  WARNING  Ticket with ID 1 not found.

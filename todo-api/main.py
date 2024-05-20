@@ -8,6 +8,19 @@ from hashing import Hash
 import schemas
 from routers import user,authentication,task
 
+from loguru import logger
+import sys
+# from logtail import LogtailHandler
+
+# handler = LogtailHandler(source_token="D56NCJRhhHnEmSmG12Yj4q1A")
+# logger.debug("Happy logging with Loguru!")
+
+logger.remove()
+logger.add('logs/mylogs.log', format="{time:MMMM D, YYYY > HH:mm:ss} |  {level} <level> {message}</level>")
+# logger.add("logs/mylogs.log",
+#             format="{time} {level} <level> {message}</level> {extra}",
+#             )
+
 models.Base.metadata.create_all(bind=database.engine) 
 
 app = FastAPI()

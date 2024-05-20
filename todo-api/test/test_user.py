@@ -25,7 +25,6 @@ def test_create_user():
   "password": "pratikc",
   "email": "pratik"
 }
-
         response = requests.request("post", url, headers=headers,json=data)
         # print(**response.json())
         # response_jsondata = response.json()

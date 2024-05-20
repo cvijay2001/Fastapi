@@ -1,3 +1,4 @@
+
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,Date
 from sqlalchemy.orm import relationship
 import models,database
@@ -41,7 +42,3 @@ class Task(Base):
     
 
     
-
-
-
-
